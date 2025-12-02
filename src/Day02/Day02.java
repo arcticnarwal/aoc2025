@@ -3,12 +3,11 @@ package Day02;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.math.BigInteger;
 
 public class Day02 {
-    public static BigInteger getSolution() {
+    public static long getSolution() {
         String filePath = "src/Day02/input.txt";
-        BigInteger invalidProductIdSum = BigInteger.ZERO;
+        long invalidProductIdSum = 0;
 
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -16,26 +15,22 @@ public class Day02 {
                 String[] productIdRanges = line.split(",");
                 for (String productIdRange : productIdRanges) {
                     String[] splitProductIdRange = productIdRange.split("-");
-                    BigInteger currentProductId = new BigInteger(splitProductIdRange[0]);
-                    BigInteger lastProductId = new BigInteger(splitProductIdRange[1]);
-                    while (currentProductId.compareTo(lastProductId) <= 0) {
-                        String currentProductIdString = currentProductId.toString();
-                        if (currentProductIdString.length() % 2 != 0) {
-                            currentProductId = currentProductId.add(BigInteger.ONE);
+                    long currentProductId = Long.parseLong(splitProductIdRange[0]);
+                    long lastProductId = Long.parseLong(splitProductIdRange[1]);
+
+                    while (currentProductId <= lastProductId) {
+                        String currentProductIdString = String.valueOf(currentProductId);
+                        String leftHalf = currentProductIdString.substring(0, currentProductIdString.length() / 2);
+
+                        if (currentProductIdString.length() % 2 > 0) {
+                            currentProductId++;
                             continue;
+                        }                    
+                        if (isRepeatedValue(leftHalf, currentProductIdString)) {
+                            System.out.println(currentProductId);
+                            invalidProductIdSum += currentProductId;
                         }
-                        String leftHalf = currentProductIdString.substring(0, (currentProductIdString.length()/2));
-                        BigInteger invalidProductId = new BigInteger(leftHalf + leftHalf);
-                        if (invalidProductId.compareTo(lastProductId) > 0) {
-                            currentProductId = invalidProductId;
-                            continue;
-                        }
-                        if (invalidProductId.compareTo(currentProductId) >= 0) {
-                            System.out.println(invalidProductId);
-                            invalidProductIdSum = invalidProductIdSum.add(invalidProductId);
-                        }
-                        String newLeftHalf = new BigInteger(leftHalf).add(BigInteger.ONE).toString();
-                        currentProductId = new BigInteger(newLeftHalf + newLeftHalf);
+                        currentProductId++;
                     }
                 }    
             }   
@@ -44,6 +39,10 @@ public class Day02 {
         }
 
         return invalidProductIdSum;
+    }
+
+    private static boolean isRepeatedValue(String pattern, String productId) {
+        return productId.equals(pattern.repeat(productId.length() / pattern.length()));
     }
 }
 
@@ -81,5 +80,5 @@ Your job is to find all of the invalid IDs that appear in the given ranges. In t
 The rest of the ranges contain no invalid IDs.
 Adding up all the invalid IDs in this example produces 1227775554.
 
-What do you get if you add up all of the invalid IDs?
+What do you get if you add up all of the invalid IDs? 41294979841
 */

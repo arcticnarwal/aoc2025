@@ -45,7 +45,6 @@ public class Day02p2 {
     private static boolean isRepeatedValue(String pattern, String productId) {
         return productId.equals(pattern.repeat(productId.length() / pattern.length()));
     }
-
 }
 
 /*
