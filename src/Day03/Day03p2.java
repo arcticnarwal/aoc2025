@@ -73,5 +73,5 @@ In 234234234234278, the largest joltage can be found by turning on everything ex
 In 818181911112111, the joltage 888911112111 is produced by turning on everything except some 1s near the front.
 The total output joltage is now much larger: 987654321111 + 811111111119 + 434234234278 + 888911112111 = 3121910778619.
 
-What is the new total output joltage?
+What is the new total output joltage? 172119830406258
 */
