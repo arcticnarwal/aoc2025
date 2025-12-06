@@ -9,6 +9,8 @@ public class App {
         // System.out.println(Day04.Day04.getSolution());
         // System.out.println(Day04.Day04p2.getSolution());
         // System.out.println(Day05.Day05.getSolution());
-        System.out.println(Day05.Day05p2.getSolution());
+        // System.out.println(Day05.Day05p2.getSolution());
+        // System.out.println(Day06.Day06.getSolution());
+        System.out.println(Day06.Day06p2.getSolution());
     }
 }
