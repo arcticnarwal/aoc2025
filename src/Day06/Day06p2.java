@@ -29,12 +29,10 @@ public class Day06p2 {
         lines.removeLast();
 
         for (int actionIndex = 0; actionIndex < actions.size(); actionIndex++) {
-            long returnVal = 0;
-            char action = actions.get(actionIndex).getAction();
-            int leftIndex = actions.get(actionIndex).getIndex();
+            ActionPair thisAction = actions.get(actionIndex);
             List<Long> values = new ArrayList<>();
 
-            for (int i = rightIndex; i >= leftIndex; i--) {
+            for (int i = rightIndex; i >= thisAction.getLocation(); i--) {
                 String val = "";
                 for (int row = 0; row < lines.size(); row++) {
                     char digit = lines.get(row).charAt(i);
@@ -45,20 +43,8 @@ public class Day06p2 {
                 values.add(Long.parseLong(val));
             }
 
-            if (action == MULTIPLY) {
-                returnVal = 1;
-                for (Long v : values) {
-                    returnVal *= v; 
-                }
-            }
-            if (action == ADD) {
-                for (Long v : values) {
-                    returnVal += v; 
-                }
-            }
-
-            grandTotal += returnVal;
-            rightIndex = leftIndex - 2;
+            grandTotal += thisAction.performOn(values);
+            rightIndex = thisAction.getLocation() - 2;
         }
 
         return grandTotal;
